@@ -1,38 +1,35 @@
 package tree.trie;
 
-import static java.util.Arrays.copyOfRange;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class TrieNode {
 	private Map<Character, TrieNode> children = new HashMap<>();
+	private int times = 0;
 	private boolean isTerminal = false;
 
 	public TrieNode() {
 	}
 
-	public TrieNode(char[] word) {
-		if (word.length == 0) {
+	public TrieNode(String word) {
+		if (word.length() == 0) {
+			times++;
 			this.setTerminal(true);
 		} else {
 			addWord(word);
 		}
 	}
 
-	public void addWord(char[] word) {
-		Character character = word[0];
-		if (getChildren().containsKey(character)) {
-			getChildren().get(character).addWord(tail(word));
-		} else {
-			getChildren().put(character, new TrieNode(tail(word)));
+	public void addWord(String word) {
+		if (word.length() > 0) {
+			times++;
+			Character character = word.charAt(0);
+			if (getChildren().containsKey(character)) {
+				getChildren().get(character).addWord(word.substring(1));
+			} else {
+				getChildren().put(character, new TrieNode(word.substring(1)));
+			}
 		}
-	}
-
-	private char[] tail(char[] word) {
-		char[] copy = new char[word.length - 1];
-		System.arraycopy(word, 1, copy, 0, word.length - 1);
-		return copy;
 	}
 
 	/**
@@ -42,42 +39,31 @@ public class TrieNode {
 	 * @return
 	 */
 	public boolean contains(String prefix) {
-		return contains(this, prefix.toCharArray());
+		return contains(this, prefix);
 	}
 
-	private boolean contains(TrieNode root, char[] prefix) {
+	private boolean contains(TrieNode root, String prefix) {
 		if (root == null) {
 			return false;
 		}
-		if (prefix.length == 0) {
+		if (prefix.length() == 0) {
 			return true;
 		}
-		return contains(root.getChildren().get(prefix[0]), copyOfRange(prefix, 1, prefix.length));
+		return contains(root.getChildren().get(prefix.charAt(0)), prefix.substring(1));
 
 	}
 
 	public int countPrefix(String prefix) {
-		if (this.contains(prefix)) {
-			return countPrefix(this, prefix.toCharArray());
-		} else {
-			return 0;
-		}
+		return countPrefix(this, prefix);
 	}
 
-	private int countPrefix(TrieNode trieNode, char[] prefix) {
-		if (prefix.length == 0) {
-			int sum = 0;
-			if (trieNode.isTerminal) {
-				sum++;
-			}
-			for (TrieNode node : trieNode.getChildren().values()) {
-				sum += countPrefix(node, prefix);
-			}
-			return sum;
+	private int countPrefix(TrieNode trieNode, String prefix) {
+		if (prefix.length() == 0) {
+			return trieNode.times;
 		}
-		char c = prefix[0];
+		char c = prefix.charAt(0);
 		if (trieNode.getChildren().containsKey(c)) {
-			return countPrefix(trieNode.getChildren().get(c), copyOfRange(prefix, 1, prefix.length));
+			return countPrefix(trieNode.getChildren().get(c), prefix.substring(1));
 		}
 		return 0;
 	}
@@ -88,11 +74,6 @@ public class TrieNode {
 
 	public void setTerminal(boolean isTerminal) {
 		this.isTerminal = isTerminal;
-	}
-
-	public void addWord(String s) {
-		addWord(s.toCharArray());
-
 	}
 
 	public Map<Character, TrieNode> getChildren() {
