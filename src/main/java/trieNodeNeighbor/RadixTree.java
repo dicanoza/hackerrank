@@ -52,11 +52,9 @@ public class RadixTree {
 
 	private int breakIndex(String word, String child) {
 		int min = Math.min(child.length(), word.length());
-		int lenght = min;
 		for (int i = 0; i < min; i++) {
 			if (child.charAt(i) != word.charAt(i)) {
-				lenght = i;
-				break;
+				return i;
 			}
 		}
 		return min;

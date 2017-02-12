@@ -1,5 +1,6 @@
 package trieNodeNeighbor;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,6 +9,7 @@ import java.nio.file.Paths;
 public class Test {
 	public static void main(String[] args) {
 		String letras = "ABCDEFGHIJKLMNOPQRSTUVYWXZ";
+		// String letras = "ABCDE";
 		int k = 600000;
 		StringBuilder sb = new StringBuilder();
 		sb.append(k);
@@ -22,8 +24,9 @@ public class Test {
 		sb.append("\n");
 
 		Path path = Paths.get("D:\\test.txt");
-		try {
-			Files.newBufferedWriter(path).write(sb.toString());
+		try (BufferedWriter newBufferedWriter = Files.newBufferedWriter(path)) {
+			newBufferedWriter.write(sb.toString());
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
