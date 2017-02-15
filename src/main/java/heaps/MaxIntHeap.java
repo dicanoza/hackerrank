@@ -1,6 +1,6 @@
 package heaps;
 
-public class MinIntHeap extends Heap {
+public class MaxIntHeap extends Heap {
 
 	/**
 	 * fix the heap order looking from the last to the first element
@@ -8,7 +8,7 @@ public class MinIntHeap extends Heap {
 	@Override
 	protected void heapfyUp() {
 		int index = size - 1;
-		while (hasParent(index) && parent(index) > items[index]) {
+		while (hasParent(index) && parent(index) < items[index]) {
 			swap(getParentIndex(index), index);
 			index = getParentIndex(index);
 		}
@@ -22,16 +22,16 @@ public class MinIntHeap extends Heap {
 	protected void heapfyDown() {
 		int index = 0;
 		while (hasLeftChild(index)) {
-			int smallerIndex = getLeftChildIndex(index);
-			if (hasRightChild(index) && rightChild(index) < leftChild(index)) {
-				smallerIndex = getRightChildIndex(index);
+			int biggestIndex = getLeftChildIndex(index);
+			if (hasRightChild(index) && rightChild(index) > leftChild(index)) {
+				biggestIndex = getRightChildIndex(index);
 			}
-			if (items[index] < items[smallerIndex]) {
+			if (items[index] > items[biggestIndex]) {
 				break;
 			} else {
-				swap(index, smallerIndex);
+				swap(index, biggestIndex);
 			}
-			index = smallerIndex;
+			index = biggestIndex;
 		}
 
 	}
