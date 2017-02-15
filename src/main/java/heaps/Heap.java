@@ -3,7 +3,7 @@ package heaps;
 import java.util.Arrays;
 
 public abstract class Heap {
-	protected int capacity;
+	protected int capacity = 10;
 	protected int size = 0;
 
 	protected int[] items = new int[capacity];
