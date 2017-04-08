@@ -1,0 +1,6 @@
+Puce|Red|Purple|Orange|Fuscia|Red|Indigo
+Indigo|Pink|Violet|Violet|Purple|Indigo|Khaki
+Mauv|Goldenrod|Goldenrod|Indigo|Mauv|Red|Khaki
+Green|Red|Crimson|Khaki|Blue|Maroon|Green
+Yellow|Violet|Goldenrod|Green|Teal|Teal|Fuscia
+Violet|Indigo|Indigo|Khaki|Blue|Crimson|Mauv
