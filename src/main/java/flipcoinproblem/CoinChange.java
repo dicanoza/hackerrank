@@ -1,11 +1,8 @@
 package flipcoinproblem;
 
-import static java.util.Arrays.fill;
-
 class CoinChange {
 	static long countWays(int coins[], int m, int n) {
 		long[] table = new long[n + 1];
-		fill(table, 0);
 		table[0] = 1;
 		for (int i = 0; i < m; i++) {
 			for (int j = coins[i]; j <= n; j++) {
